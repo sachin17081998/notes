@@ -13,6 +13,6 @@ furture refrence
 
 I just love **bold text**.
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
+> Dorothy followed her through many of the beautiful rooms in her castle..
 
 ![title](Images/one.png)
