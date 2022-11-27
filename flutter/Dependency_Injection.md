@@ -157,7 +157,7 @@ class Level4 extends StatelessWidget {
 ```
 
 **Output**
-![Simulator Output](/images/image1.png "Builing class")
+![Simulator Output](images/image1.png "Builing class")
 
 ---
 
@@ -233,7 +233,7 @@ so here Dependecy Injection comes into action
 
 To obtain clean code and to have loosely coupled system you need to use some kind of inversion of control (IOC). The get_it package is a service locator, in which you would have a central registry where you can register the classes and then obtain an instance of those class.
 
-![Simulator Output](/images/imag2.png "Builing class")
+![Simulator Output](images/imag2.png "Builing class")
 
 As you can see in the above image, both dependency injection and service locator are a form of IOC.
 
@@ -306,7 +306,7 @@ class Level4 extends StatelessWidget {
 }
 ```
 **Output**
-![Simulator Output](/images/image3.png "Builing class")
+![Simulator Output](images/image3.png "Builing class")
 
 
 in the above example we register the `Message` class as `Factory` b because of this we get new instance of Message class when we inject it.
@@ -420,7 +420,7 @@ class Level4 extends StatelessWidget {
 
 
 **Output**
-![Simulator Output](/images/image4.png "Builing class")
+![Simulator Output](images/image4.png "Builing class")
 
 ---
 # Resources
