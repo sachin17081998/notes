@@ -1,6 +1,6 @@
 # notes_repo
 
-Personal repo to
+Personal repo to check
 keep noted from
 diffrent topics in MD format
 for
