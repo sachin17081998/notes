@@ -15,4 +15,4 @@ I just love **bold text**.
 
 > Dorothy followed her through many of the beautiful rooms in her castle..
 
-![title](Images/one.png)
+![title](https://raw.githubusercontent.com/sachin17081998/notes/main/images/one.png)
