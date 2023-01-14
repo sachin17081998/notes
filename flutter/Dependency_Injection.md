@@ -1,6 +1,6 @@
 # Dependecy Injection
 
-lets try to understand the dependecy injection with an single example of `car` and `engine`.
+lets try to <mark> understand </mark> the dependecy injection with an single example of **_car_** and **_engine_**.
 
 ```dart
 class GasEngine{
@@ -22,11 +22,12 @@ void main() {
 ` Gas Engine Started: brum-brum-brum....`
 
 ---
-In the above example Car class is dependent on engine class and in above code we have `tightly coupled` the engine class with car class.<br>
-Now what if we want to change the GasEngine to an ElectricEngine. For doing this we will need to again update the Car class. 
+
+In the above example Car class is dependent on engine class and in above code we have **_tightly coupled_** the engine class with car class.<br>
+Now what if we want to change the GasEngine to an ElectricEngine. For doing this we will need to again update the Car class.
 so because of one simple dependecy the entire class needs to be updated. And the bigger the application the more issues and headache we will have to add and use new type of engine
 
-In other words with this approach is that our high level Car class is dependent on the lower level GasEngine class which violate Dependency **Inversion Principle(DIP)** from `SOLID`. DIP suggests that we should depend on abstractions, not concrete classes. So to satisfy this we introduce Engine interface and rewrite code like below
+In other words with this approach is that our high level Car class is dependent on the lower level GasEngine class which violate Dependency **Inversion Principle(DIP)** from **_SOLID_**. DIP suggests that we should depend on abstractions, not concrete classes. So to satisfy this we introduce Engine interface and rewrite code like below
 
 ```dart
 // an abstract class for all type of engine
@@ -69,12 +70,11 @@ void main() {
 
 ---
 
-
 <br><br>
+
 # Dependecy Injection In Flutter
 
 for understanding Dependecy injection lets try to build the below screen in which multiple widgets are nested in one another
-
 
 ```dart
 import 'package:flutter/material.dart';
@@ -157,12 +157,12 @@ class Level4 extends StatelessWidget {
 ```
 
 **Output**
-![Simulator Output](images/image1.png "Builing class")
+![Simulator Output](images/image1.png 'Builing class')
 
 ---
 
 Now suppose we want the text that is displayed in Level-4 widget to change.
-As we can see the root widget is ***Level1*** and we are calling this widget to build all other Levels.
+As we can see the root widget is **_Level1_** and we are calling this widget to build all other Levels.
 
 so one way is to pass data in each widget constructor like below
 
@@ -233,7 +233,7 @@ so here Dependecy Injection comes into action
 
 To obtain clean code and to have loosely coupled system you need to use some kind of inversion of control (IOC). The get_it package is a service locator, in which you would have a central registry where you can register the classes and then obtain an instance of those class.
 
-![Simulator Output](images/imag2.png "Builing class")
+![Simulator Output](images/imag2.png 'Builing class')
 
 As you can see in the above image, both dependency injection and service locator are a form of IOC.
 
@@ -243,7 +243,7 @@ Dependency Injection, is a way to achieve IOC through constructor injection, set
 
 Service Locator, also it is a way to achieve IOC but the main difference with DI is that every class will have a dependency on the service locator while using DI the class is given the dependencies without knowing from where they came from.
 
-## ***Get_It***
+## **_Get_It_**
 
 Get it is one of the more popular ways to handle DI in flutter apps. You can also register your dependencies as singletons, lazy singletons or factory.
 
@@ -251,13 +251,14 @@ Get it is one of the more popular ways to handle DI in flutter apps. You can als
 2. A lazy Singleton will create the object on the first instance when it is called. This is useful when you have a service that takes time to start and should only start when it is needed.
 3. A Factory will return a new instance of the service anytime it is called.
 
-
 ### **Steps to use Get_it**
+
 1. First, add get_it to your pubspec.yaml file:
 
- >  `get_it: ^7.2.0`
+> `get_it: ^7.2.0`
 
 2. create a Message class which we will register as service.
+
 ```dart
 class Message{
   String message;
@@ -270,6 +271,7 @@ class Message{
   String getMessage()=>message;
 }
 ```
+
 3. Now, you can create a file to register all your objects, I’ll call mine service_locator.dart, and place a single function in it called getService().
 
 ```dart
@@ -286,10 +288,12 @@ void getServices() {
 
 in the above case we register the class as Factory
 
-***Factory***
->When you request an instance of the type from the service provider you'll get a new instance every time. Good for registering ViewModels that need to run the same logic on start or that has to be new when the view is opened.
+**_Factory_**
 
-4. now inject the dependecy in the `Level_4` widget only.
+> When you request an instance of the type from the service provider you'll get a new instance every time. Good for registering ViewModels that need to run the same logic on start or that has to be new when the view is opened.
+
+4. now inject the dependecy in the **_Level_4_** widget only.
+
 ```dart
 class Level4 extends StatelessWidget {
    Level4({Key? key}) : super(key: key);
@@ -305,17 +309,19 @@ class Level4 extends StatelessWidget {
   }
 }
 ```
+
 **Output**
-![Simulator Output](images/image3.png "Builing class")
+![Simulator Output](images/image3.png 'Builing class')
 
+in the above example we register the **_Message_** class as **_Factory_** b because of this we get new instance of Message class when we inject it.
+so for creating a single resuable instance we need to register the Message class as **_Singelton_**.
 
-in the above example we register the `Message` class as `Factory` b because of this we get new instance of Message class when we inject it.
-so for creating a single resuable instance we need to register the Message class as `Singelton`.
+**_ Singelton _**
 
-*** Singelton ***
->Singletons can be registered in two ways. Provide an implementation upon registration or provide a lamda that will be invoked the first time your instance is requested (LazySingleton). The Locator keeps a single instance of your registered type and will always return you that instance.
+> Singletons can be registered in two ways. Provide an implementation upon registration or provide a lamda that will be invoked the first time your instance is requested (LazySingleton). The Locator keeps a single instance of your registered type and will always return you that instance.
 
-update `get_service()` function and register Message class as singelton.
+update **_get_service()_** function and register Message class as singelton.
+
 ```dart
 import 'package:dependecy_injection_demo/message_class.dart';
 import 'package:get_it/get_it.dart';
@@ -326,9 +332,11 @@ void getServices(){
   Di.registerSingleton(Message(message: 'Inner bloc'));
 }
 ```
->`we can also use Lazy singelton which will only initilize the object when it is injected. This can help cases when creating an object of a service is time consuming`
 
-after this we again injected the Message in building class and updated the message by calling method `changeMessage()`.
+> `we can also use Lazy singelton which will only initilize the object when it is injected. This can help cases when creating an object of a service is time consuming`
+
+after this we again injected the Message in building class and updated the message by calling method **_changeMessage()_**.
+
 ```dart
 import 'package:dependecy_injection_demo/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -416,13 +424,13 @@ class Level4 extends StatelessWidget {
 
 ```
 
->In the below output one can see the message is updated when building widget is constructed and finally the updated message is painted in the level-4 widget, although we are using same instance.
-
+> In the below output one can see the message is updated when building widget is constructed and finally the updated message is painted in the level-4 widget, although we are using same instance.
 
 **Output**
-![Simulator Output](images/image4.png "Builing class")
+![Simulator Output](images/image4.png 'Builing class')
 
 ---
+
 # Resources
 
 1. [Medium Article on DI](https://levelup.gitconnected.com/dependency-injection-in-dart-flutter-apps-3332f1a61041)
@@ -431,4 +439,4 @@ class Level4 extends StatelessWidget {
 
 3. [Dependecy Injection-2](https://medium.com/filledstacks/dependency-injection-in-flutter-2225d3081f61)
 
-3. [Inversion Of Control (IOC)](https://medium.com/@aaron.chu/whats-inversion-of-control-ioc-fb09e2ad7b63)
+4. [Inversion Of Control (IOC)](https://medium.com/@aaron.chu/whats-inversion-of-control-ioc-fb09e2ad7b63)
