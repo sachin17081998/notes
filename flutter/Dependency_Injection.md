@@ -1,6 +1,6 @@
 # Dependecy Injection
 
-lets try to <mark> understand </mark> the dependecy injection with an single example of **_car_** and **_engine_**.
+lets try to understand the dependecy injection with an single example of **_car_** and **_engine_**.
 
 ```dart
 class GasEngine{
