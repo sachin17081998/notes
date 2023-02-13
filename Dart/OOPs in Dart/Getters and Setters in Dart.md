@@ -1,4 +1,4 @@
-# Getter NAd Setter in Dart
+# Getter and Setter in Dart
 **Getter** and **Setter** provides an explicit read and write access to an object properties. In dart **get** and **set** keywords are used to create getter and setter.
 
 **Getter**: It reads the value of an property and act as an accessor.It is mostly used to access the private properties of class.
