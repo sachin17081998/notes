@@ -126,5 +126,184 @@ The ObservableFuture is the reactive wrapper around a Future. You can use it to 
 
 Here is a simple LoadingIndicator widget that uses the ObservableFuture to show a progress bar during a fetch operation:
 
+``` dart
+
+// github_store.dart
+part 'github_store.g.dart';
+
+class GithubStore = _GithubStore with _$GithubStore;
+
+abstract class _GithubStore with Store {
+  // ...
+
+  static ObservableFuture<List<Repository>> emptyResponse =
+      ObservableFuture.value([]);
+
+  // We are starting with an empty future to avoid a null check
+  @observable
+  ObservableFuture<List<Repository>> fetchReposFuture = emptyResponse;
+
+  // ...
+}
+
+// github_widgets.dart
+class LoadingIndicator extends StatelessWidget {
+  const LoadingIndicator(this.store);
+
+  final GithubStore store;
+
+  @override
+  Widget build(BuildContext context) => Observer(
+      builder: (_) => store.fetchReposFuture.status == FutureStatus.pending
+          ? const LinearProgressIndicator()
+          : Container());
+}
+```
 
 
+
+## Computed
+Computed form the derived state of your application. They depend on other observables or computed for their value. Any time the depending observables change, they will recompute their new value. Computed`s are also smart and cache their previous value. Only when the computed-value is different than the cached-value, will they fire notifications. This behavior is key to ensure the connected reactions don't execute unnecessarily
+
+
+```dart
+final first = Observable('Tony');
+final last = Observable('Stark');
+
+final fullName = Computed(() => '${first.value} ${last.value}');
+
+print(fullName.value); // Tony Stark
+
+runInAction(() => first.value = 'Mohan');
+
+print(fullName.value); // Mohan Stark
+```
+
+
+
+# **Actions**
+
+Actions are functions that encapsulate the mutations on observables. They are used to give a semantic name to the operation, such as incrementCounter() instead of simply doing counter++. These semantic names are how you would identify the various operations happening in the domain, as exposed on the UI.
+
+Additionally, actions also provide few other guarantees:
+
+* Changes to the observables are only notified at the end of the action. This ensures all mutations happen as an atomic unit. This also eliminates noisy notifications, especially if you are changing a lot of observables (say, in a loop).
+* Actions can call other actions. For such nested actions, the change-notifications will be sent when the top-most action completes.
+* All the linked reactions (ones that depend on the observables mutated inside the action) are run only at the end of the action. This also ensures there are no pre-mature reactions occurring in the system.
+
+
+```dart
+final counter = Observable(0);
+
+// Create an action
+final incrementCounter = Action((){
+    counter.value++;
+});
+
+// Invoke the action
+// The first argument is a list of args that are passed to the inner function, which is empty in this case
+incrementCounter([]);
+```
+
+
+>By default, MobX enforces a rule that all mutations to observables should happen inside an action. This is part of the configuration for a ReactiveContext. If you mutate an observable that is being observed, outside of an action, MobX will throw an Exception. This is a safety measure to ensure there are no stray mutations happening in your application
+
+
+### <u> **runInAction**</u>
+T runInAction<T>(T Function() fn, {String name, ReactiveContext context})
+* Function fn: A function that mutates some observables
+* ReactiveContext context: An optional context within which this should be executed. Normally, you don't need to pass any value here, in which case it uses the singleton mainContext of the application.
+String name: An optional name to identify this action
+* T: the return value of the passed in function fn
+Sometimes it can be excessive to have an Action created just to mutate some observables. It's much easier to just wrap your mutating function inside a runInAction().
+
+
+
+# **Reactions**
+
+The MobX triad is completed when we add Reactions into the mix. Having reactions is what triggers the reactivity in the system. A reaction implicitly tracks all the observables which are being used and then re-executes its logic whenever the depending observables change.
+
+>Computed, a reaction?Technically, a computed is also a reaction, aka Derivation, as it depends on other observables or computeds. The only difference between a regular Reaction and Computed is that the former does not produce any value. Computeds are mostly read-only observables that derive their value from other observables.
+
+Reactions, or Derivations come in few flavors: autorun, reaction, when and of course the Flutter Widget: Observer.
+
+ All of these variations take a function that is tracked for any observables. When the tracked observables change, the function is re-executed. This simple behavior is the defining characteristic of a reaction. Note that there is no explicit subscription or wiring needed. Reactions also return a disposer-function (ReactionDisposer) that can be invoked to pre-maturely dispose a reaction.
+
+ ### <u> **Autorun** </u>
+ >ReactionDisposer autorun(Function(Reaction) fn)
+
+Runs the reaction immediately and also on any change in the observables used inside fn.
+
+```dart
+import 'package:mobx/mobx.dart';
+
+final greeting = Observable('Hello World');
+
+final dispose = autorun((_){
+  print(greeting.value);
+});
+
+greeting.value = 'Hello MobX';
+
+// Done with the autorun()
+dispose();
+
+
+// Prints:
+// Hello World
+// Hello MobX
+```
+
+### <u> **Reaction** </u>
+>ReactionDisposer reaction<T>(T Function(Reaction) fn, void Function(T) effect)
+
+Monitors the observables used inside the fn() tracking function and runs the effect() when the tracking function returns a different value. Only the observables inside fn() are tracked.
+
+```dart
+import 'package:mobx/mobx.dart';
+
+final greeting = Observable('Hello World');
+
+final dispose = reaction((_) => greeting.value, (msg) => print(msg));
+
+greeting.value = 'Hello MobX'; // Cause a change
+
+// Done with the reaction()
+dispose();
+
+
+// Prints:
+// Hello MobX
+```
+### <u> **When** </u>
+
+>ReactionDisposer when(bool Function(Reaction) predicate, void Function() effect)
+
+Monitors the observables used inside predicate() and runs the effect() when it returns true. After the effect() is run, when automatically disposes itself. So you can think of when as a one-time reaction. You can also dispose when() pre-maturely.
+```dart
+import 'package:mobx/mobx.dart';
+
+final greeting = Observable('Hello World');
+
+final dispose = when((_) => greeting.value == 'Hello MobX', () => print('Someone greeted MobX'));
+
+greeting.value = 'Hello MobX'; // Causes a change, runs effect and disposes
+
+
+// Prints:
+// Someone greeted MobX
+```
+### <u> **AsyncReaction** </u>
+
+> Future<void> asyncWhen(bool Function(Reaction) predicate)
+
+Similar to when but returns a Future, which is fulfilled when the predicate() returns true. This is a convenient way of waiting for the predicate() to turn true.
+```dart
+final completed = Observable(false);
+
+void waitForCompletion() async {
+  await asyncWhen(() => completed.value == true);
+
+  print('Completed');
+}
+```
