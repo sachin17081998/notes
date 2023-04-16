@@ -19,15 +19,15 @@ lets discuss each section pillar one by one
 
 # **Observable**
 
-Before we start digging into observables we irst need to understand the two states in flutter
+Before we start digging into observables we first need to understand the two states in flutter
 
 * Core State
 * Derived State
   
-Core state can be understood as the basic data that drives your business. for example if you are making a contact app thene user first-name and last-name will be your core state.
+Core state can be understood as the basic data that drives your business. for example if you are making a contact app then user first-name and last-name will be your core state.
 
 Derived State is something that depends oncore state or other derived state. So from above example we can say full-name of customer will be your derived state because its value can be derived from first and last name.
-> Derived-State is almost always read-only. In the MobX parlance, derived-state is also called computed properties, or just computeds.
+> Derived-State is almost always read-only. In the MobX parlance, derived-state is also called computed properties, or just computed.
 
 > State in MobX = Core-State + Derived-State 
 
@@ -48,11 +48,11 @@ final counter = Observable(0); // initially 0
 final list = Observable<List<Todo>>(); // start with an initialValue of null
 ```
 
-There are diffrent kind of observables that are responsible to store difrent kind of data.
+There are different kind of observables that are responsible to store different kind of data.
 
 ![Mobx](images/mobx2.png 'Mobx')
 
-#### <u>**Observable list**
+#### <u>**Observable list**</u>
 ObservableList({ReactiveContext context})
 
 ReactiveContext context: the context to which this list is bound. By default, all ObservableLists are bound to the singleton mainContext of the application.
@@ -102,20 +102,20 @@ class ChildWidget extends StatelessWidget {
 
 
 
-### <u>**ObservableMap**
+### <u>**ObservableMap**</u>
 ObservableMap({ReactiveContext context})
 
 ReactiveContext context: the context to which this map is bound. By default, all ObservableMaps are bound to the singleton mainContext of the application.
 An ObservableMap gives you a deeper level of observability on a map of values. It tracks when keys are added, removed or modified and notifies the observers. Use an ObservableMap when a change in the map matters. You can couple this with the @observable annotation to also track when the map reference changes, eg: going from null to a map with values.
 
-### <u> **ObservableSet**
+### <u> **ObservableSet**</u>
 ObservableSet({ReactiveContext context})
 
 ReactiveContext context: the context to which this set is bound. By default, all ObservableSets are bound to the singleton mainContext of the application.
 
 An ObservableSet gives you a deeper level of observability on a set of values. It tracks when values are added, removed or modified and notifies the observers. Use an ObservableSet when a change in the set matters. You can couple this with the @observable annotation to also track when the set reference changes, eg: going from null to a set with values.
 
-### **ObservableFuture**
+### <u>**ObservableFuture**</u>
 ObservableFuture(Future< T > future, {ReactiveContext context})
 
 * Future< T > future: The future that is tracked for status changes.
