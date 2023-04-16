@@ -52,7 +52,7 @@ There are diffrent kind of observables that are responsible to store difrent kin
 
 ![Mobx](images/mobx2.png 'Mobx')
 
-#### **Observable list**
+#### <u>**Observable list**
 ObservableList({ReactiveContext context})
 
 ReactiveContext context: the context to which this list is bound. By default, all ObservableLists are bound to the singleton mainContext of the application.
@@ -102,13 +102,13 @@ class ChildWidget extends StatelessWidget {
 
 
 
-### **ObservableMap**
+### <u>**ObservableMap**
 ObservableMap({ReactiveContext context})
 
 ReactiveContext context: the context to which this map is bound. By default, all ObservableMaps are bound to the singleton mainContext of the application.
 An ObservableMap gives you a deeper level of observability on a map of values. It tracks when keys are added, removed or modified and notifies the observers. Use an ObservableMap when a change in the map matters. You can couple this with the @observable annotation to also track when the map reference changes, eg: going from null to a map with values.
 
-### **ObservableSet**
+### <u> **ObservableSet**
 ObservableSet({ReactiveContext context})
 
 ReactiveContext context: the context to which this set is bound. By default, all ObservableSets are bound to the singleton mainContext of the application.
