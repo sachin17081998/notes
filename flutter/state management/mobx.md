@@ -307,3 +307,11 @@ void waitForCompletion() async {
   print('Completed');
 }
 ```
+
+
+
+# Resources
+
+1. [Mobx Documentation](https://mobx.netlify.app/)
+2. [Medium Article 1](https://medium.com/codex/mobx-in-flutter-51dbd984ace6)
+3. [Medium Article 2](https://blog.flutterando.com.br/simple-state-management-with-mobx-17ada65c5d30)
