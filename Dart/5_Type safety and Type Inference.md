@@ -1,6 +1,6 @@
 # Type Safety
 
-**Dart is type safe language** In dart all data types define a set of operations and you can perform only those operatiions on the data. for
+**Dart is type safe language** In dart all data types define a set of operations and you can perform only those operations on the data. for
 examples
 
 > In case of boolean you can perform operation like assignment and comparison but you can not add two boolean variables.
