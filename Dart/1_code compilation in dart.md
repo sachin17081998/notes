@@ -62,7 +62,7 @@ Dart Vm can ececute dart apps in 2 ways:
 * Kernel Binary(.dill): it conatins the abstract syntax tree of the code. This file is then sent to VM, where its is parsed to create objects representing various program entities like classes,and libraries
 
 Below image describes source code compilation through JIT compiler only.
-![Compilation from source code](images/source_compilation.png)  
+![Compilation from source code](images/sorce_compilation.png)  
 
 
 **2. From snapshots (jit,aot or kernel snapshot)**
@@ -75,7 +75,7 @@ There are three snapshot types:
 * JIT- snapshot
 * AOT — snapshot
 * Kernel — snapshot
-![Snapshot](images/snapshot.png)
+![Snapshot](images/sanpshot.png)
 
 
 
