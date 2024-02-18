@@ -1,4 +1,11 @@
+
+
+
+
+
 # Dart Compiler
+
+![Dart Project Structure](images/dart_file_structure.png 'Dart File Structure')
 
 In dart there are multiple compilers
 

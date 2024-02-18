@@ -1,6 +1,6 @@
 # Analysis In Dart
 
-Place the analysis options file, analysis_options.yaml, at the root of the package, in the same directory as the pubspec file.
+Analysis of any dart project is defined in analysis_options.yaml file present at the root of the package, in the same directory as the pubspec file.
 
 Here’s a sample analysis options file:
 
