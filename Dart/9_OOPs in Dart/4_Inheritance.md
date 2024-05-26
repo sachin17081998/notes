@@ -120,3 +120,28 @@ Useful related terms are contravariant, which means types equal or higher in the
 
 
  ![Inheritance Checklist](images/inheritance_checklist.png 'Inheritance Checklist')
+
+
+
+ ## Why Dart does not allow multiple inheritance
+
+ ![Why SIngle Inheritance](images/inheritance2.png 'Inheritance')
+
+ In the above diagram famous problem **Deadly Diamond of Death** that comes with multiple inheritance is represented.
+
+ Inheritance hierarchy for above example
+
+ Performer (base class) 
+
+ Guitarist(subclass) ---> Performer (base class)
+ 
+ Drummer (subclass) ---> Performer (base class) 
+
+now a Musician can be both Guitarist and a Drummer
+
+```dart
+            |---> Guitarist 
+ Musician --|
+            |---> Drummer
+```
+Now in above scenario Dart is unable to identify which perform method should be called for musician class. 

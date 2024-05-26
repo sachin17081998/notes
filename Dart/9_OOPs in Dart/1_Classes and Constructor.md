@@ -62,6 +62,18 @@ Animal lion=Animal('Lion',true,4);
 lion.showAnimal();  //Lion is a mamal and has 4 legs 
 }
 ```
+
+>${\textsf{\color{red}Note:}}$ If you don't provide any constructor to class then dart will implictly provide an constructor with not parameters.
+
+```dart
+class A {}
+
+void main() {
+  final ob = new A();
+  print(ob); //output: Instance of A
+}
+```
+
 ## Generative constructors
 
 To instantiate a class, use a generative constructor
