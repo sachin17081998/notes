@@ -52,6 +52,7 @@ void downloadImage(){
 ## Lets try to understand the how diffrent futer methods run by dart main-isolate
 
 Event Queue: It contains all the operations that has to be performed
+
 Microtask queue: this contain operations that has to be run before the element of event queue
 
 
@@ -148,6 +149,12 @@ void main() {
 
 so 5 and 7 will be put in micro task quesue but 6 and 8 will be in event queue
 
+
+
+ ![](images/async_sync_2.png '')
+
+Output for above code is:1 15 2 9 14 4 5 6 8 7 10 13 11 12
+
  ![](images/async_sync_1.png '')
 
 
@@ -155,7 +162,8 @@ so 5 and 7 will be put in micro task quesue but 6 and 8 will be in event queue
 
 
 
-
+references:
+https://pmatatias.medium.com/flutter-future-future-sync-future-microtask-future-value-etc-3f46aeae1210
 
 
 ```dart
